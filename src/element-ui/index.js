@@ -2,6 +2,8 @@
 import 'element-ui/lib/theme-chalk/base.css'
 // collapse 展开折叠
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
+// 断点
+import 'element-ui/lib/theme-chalk/display.css'
 import Vue from 'vue'
 import {
   Pagination,
