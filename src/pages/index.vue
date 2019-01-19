@@ -9,29 +9,59 @@
           @open="handleOpen"
           @close="handleClose">
           <el-menu-item index="1">
-            <i class="el-icon-tickets"></i>
+            <i class="iconfont icon-quanbu"></i>
             <span slot="title">全部文件</span>
           </el-menu-item>
           <el-menu-item index="2">
-            <i class="el-icon-picture-outline"></i>
+            <i class="iconfont icon-tupian"></i>
             <span slot="title">图片</span>
           </el-menu-item>
           <el-menu-item index="3">
-            <i class="el-icon-document"></i>
+            <i class="iconfont icon-wendang"></i>
             <span slot="title">文档</span>
           </el-menu-item>
           <el-menu-item index="4">
-            <i class="el-icon-caret-right                                                             "></i>
+            <i class="iconfont icon-shipin"></i>
             <span slot="title">视频</span>
           </el-menu-item>
         </el-menu>
       </el-aside>
-      <el-main id="main">main</el-main>
+      <el-main id="main">
+        <div class="search-container">
+          <el-input
+            size="medium"
+            placeholder="搜索您的文件"
+            suffix-icon="el-icon-search"
+            v-model="search"/>
+          <el-dropdown class="sort">
+            <span class="el-dropdown-link">
+              排序<i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>文件名</el-dropdown-item>
+              <el-dropdown-item>大小</el-dropdown-item>
+              <el-dropdown-item>修改时间</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+        <div class="folder-container">
+          <folder name="新建文件夹新" v-for="item in 100" :key="item"/>
+        </div>
+      </el-main>
     </el-container>
   </el-container>
 </template>
 <script>
+import Folder from '@/components/folder'
 export default {
+  components: {
+    Folder
+  },
+  data () {
+    return {
+      search: ''
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -40,18 +70,20 @@ export default {
     height:100%;
     background:$bg-color;
     #header{
+      display: flex;
+      align-items: center;
     }
     #aside{
       padding-top: 10px;
-      .el-menu{
+      /deep/ .el-menu{
         border-right: none;
         .el-menu-item{
           text-align: left;
           font-size: 15px;
-          color: #34495E;
+          color: $common-font-color;
           background: $bg-color;
           &.is-active{
-            color: #366DB6;
+            color: $active-font-color;
             font-weight: bolder;
             background: rgba(153,169,191,0.5);
           }
@@ -62,8 +94,40 @@ export default {
     #main{
       background: #ffffff;
       margin-right: 20px;
-      border: 1px solid #CED1D3;
-      border-radius: 5px;
+      border: 1px solid $common-border-color;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 0;
+      .search-container{
+        position: relative;
+        height: 88px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px solid $common-border-color;
+        /deep/ .el-input{
+          width: 200px;
+          .el-input__inner{
+            border-radius: 10px;
+            &:focus {
+              /*outline: none;*/
+              border-color: #dcdfe6;
+            }
+          }
+        }
+        .sort{
+          position: absolute;
+          right: 20px;
+        }
+      }
+      .folder-container{
+        overflow-y: scroll;
+        flex: 1 0 0;
+        display: flex;
+        flex-wrap: wrap;
+      }
     }
   }
 </style>
