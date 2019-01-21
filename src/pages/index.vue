@@ -1,6 +1,9 @@
 <template>
   <el-container id="index-page">
-    <el-header id="header">header</el-header>
+    <el-header id="header">
+      <i class="iconfont icon-tree"></i>
+      <span>云检索</span>
+    </el-header>
     <el-container>
       <el-aside id="aside" width="195px">
         <el-menu
@@ -8,21 +11,25 @@
           class="el-menu-vertical-demo"
           @open="handleOpen"
           @close="handleClose">
+          <el-menu-item index="0">
+            <i class="el-icon-time"></i>
+            <span slot="title">最近使用</span>
+          </el-menu-item>
           <el-menu-item index="1">
-            <i class="iconfont icon-quanbu"></i>
+            <i class="el-icon-tickets"></i>
             <span slot="title">全部文件</span>
           </el-menu-item>
           <el-menu-item index="2">
-            <i class="iconfont icon-tupian"></i>
-            <span slot="title">图片</span>
+            <!--<i class="iconfont icon-tupian"></i>-->
+            <span slot="title" class="sub">图片</span>
           </el-menu-item>
           <el-menu-item index="3">
-            <i class="iconfont icon-wendang"></i>
-            <span slot="title">文档</span>
+            <!--<i class="iconfont icon-wendang"></i>-->
+            <span slot="title" class="sub">文档</span>
           </el-menu-item>
           <el-menu-item index="4">
-            <i class="iconfont icon-shipin"></i>
-            <span slot="title">视频</span>
+            <!--<i class="iconfont icon-shipin"></i>-->
+            <span slot="title" class="sub">视频</span>
           </el-menu-item>
         </el-menu>
       </el-aside>
@@ -72,6 +79,16 @@ export default {
     #header{
       display: flex;
       align-items: center;
+      font-size: 23px;
+      font-weight: 400;
+      letter-spacing: .5px;
+      color: #000;
+      .icon-tree{
+        font-size: 30px;
+        font-weight: 300;
+        color: #366DB6;
+        margin-right: 5px;
+      }
     }
     #aside{
       padding-top: 10px;
@@ -82,6 +99,9 @@ export default {
           font-size: 15px;
           color: $common-font-color;
           background: $bg-color;
+          .sub{
+            margin-left: 34px;
+          }
           &.is-active{
             color: $active-font-color;
             font-weight: bolder;
@@ -92,6 +112,7 @@ export default {
 
     }
     #main{
+      padding-top: 0;
       background: #ffffff;
       margin-right: 20px;
       border: 1px solid $common-border-color;
@@ -110,16 +131,18 @@ export default {
         /deep/ .el-input{
           width: 200px;
           .el-input__inner{
+            background: #F1F2F4;
             border-radius: 10px;
             &:focus {
               /*outline: none;*/
-              border-color: #dcdfe6;
+              border-color: #c0c4cc;
             }
           }
         }
         .sort{
           position: absolute;
           right: 20px;
+          cursor: pointer;
         }
       }
       .folder-container{
