@@ -31,6 +31,10 @@
             <!--<i class="iconfont icon-shipin"></i>-->
             <span slot="title" class="sub">视频</span>
           </el-menu-item>
+          <el-menu-item index="5">
+            <!--<i class="iconfont icon-shipin"></i>-->
+            <span slot="title" class="sub">音乐</span>
+          </el-menu-item>
         </el-menu>
       </el-aside>
       <el-main id="main">
@@ -60,6 +64,7 @@
 </template>
 <script>
 import Folder from '@/components/folder'
+// import api from '@/http'
 export default {
   components: {
     Folder
@@ -68,6 +73,9 @@ export default {
     return {
       search: ''
     }
+  },
+  async mounted () {
+    // const result = await api.test()
   }
 }
 </script>
