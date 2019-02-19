@@ -2,7 +2,7 @@
   <el-container id="index-page">
     <el-header id="header">
       <i class="iconfont icon-tree"></i>
-      <span>云检索</span>
+      <span>B+Tree</span>
     </el-header>
     <el-container>
       <el-aside id="aside" width="195px">
