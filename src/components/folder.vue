@@ -1,17 +1,21 @@
 <template>
   <div class="folder">
     <div class="iconfont icon-wenjianjia icon"></div>
-    <el-tooltip class="name" effect="dark" :content="name" placement="bottom-end">
-      <span>{{ name }}</span>
+    <el-tooltip class="name" effect="dark" :content="directory.name" placement="bottom-end">
+      <span>{{ directory.name }}</span>
     </el-tooltip>
   </div>
 </template>
 <script>
 export default {
   props: {
-    name: {
-      type: String,
-      default: ''
+    directory: {
+      type: Object,
+      default () {
+        return {
+          name: ''
+        }
+      }
     }
   }
 }
@@ -33,15 +37,18 @@ export default {
       background:#f1f5fa;
     }
     .icon{
+      flex: 0 0 auto;
       color:lightsalmon;
       font-size: 60px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     .name{
+      flex: 0 0 auto;
       box-sizing: border-box;
       width: $folder-width;
       text-align: center;
-      padding: 0 2px;
+      padding: 3px 2px;
+      line-height: 12px;
       font-size: 12px;
       color: $common-font-color;
       @include no-wrap();

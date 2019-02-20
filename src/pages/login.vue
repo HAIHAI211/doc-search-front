@@ -1,25 +1,32 @@
 <template>
   <section id="login-page">
     <div class="input-container">
-      <el-input placeholder="请输入需要扫盘的目录路径,如C:\\" v-model="input4">
+      <el-input placeholder="请输入需要扫盘的目录路径,如C:\\" v-model="path">
         <el-button slot="append" icon="el-icon-search" class="search-btn" @click="_click"></el-button>
       </el-input>
     </div>
   </section>
 </template>
 <script>
+import http from '@/http'
 export default {
+  data () {
+    return {
+      path: ''
+    }
+  },
   methods: {
-    _click () {
+    async _click () {
       const loading = this.$loading({
         lock: true,
-        text: '正在生成B+Tree索引，请耐心等待',
+        text: '正在扫盘生成B+Tree索引，请耐心等待',
         spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.7)'
+        background: '#ffffff'
       })
-      setTimeout(() => {
-        loading.close()
-      }, 2000)
+      const result = await http.init(this.path)
+      console.log('result', result)
+      loading.close()
+      this.$router.push({name: 'Index', params: {bfs: result.data}})
     }
   }
 }

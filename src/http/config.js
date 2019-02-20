@@ -3,7 +3,7 @@ import axios from 'axios'
 // import {Message} from 'element-ui'
 const config = {
   // baseURL: 'http://192.168.40.188:9999/service-system',
-  timeout: 6000
+  timeout: 1800000
 }
 const instance = axios.create(config)
 

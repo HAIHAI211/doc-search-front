@@ -8,9 +8,7 @@
       <el-aside id="aside" width="195px">
         <el-menu
           default-active="1"
-          class="el-menu-vertical-demo"
-          @open="handleOpen"
-          @close="handleClose">
+          class="el-menu-vertical-demo">
           <el-menu-item index="0">
             <i class="el-icon-time"></i>
             <span slot="title">最近使用</span>
@@ -56,7 +54,12 @@
           </el-dropdown>
         </div>
         <div class="folder-container">
-          <folder name="新建文件夹新" v-for="item in 100" :key="item"/>
+          <div class="folder-wrap">
+            <template v-for="(bf,index) in bfs">
+              <folder :directory="bf" :key="index" v-if="bf.directory"/>
+              <file :file="bf" :key="index" v-else/>
+            </template>
+          </div>
         </div>
       </el-main>
     </el-container>
@@ -64,18 +67,23 @@
 </template>
 <script>
 import Folder from '@/components/folder'
+import File from '@/components/file'
 // import api from '@/http'
 export default {
   components: {
-    Folder
+    Folder,
+    File
   },
   data () {
     return {
-      search: ''
+      search: '',
+      bfs: []
     }
   },
   async mounted () {
     // const result = await api.test()
+    this.bfs = this.$route.params.bfs
+    console.log('bfs', this.$route.params.bfs)
   }
 }
 </script>
@@ -156,8 +164,10 @@ export default {
       .folder-container{
         overflow-y: scroll;
         flex: 1 0 0;
-        display: flex;
-        flex-wrap: wrap;
+        .folder-wrap{
+          display: flex;
+          flex-wrap: wrap;
+        }
         /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
         &::-webkit-scrollbar
         {
