@@ -1,7 +1,7 @@
 <template>
   <section id="login-page">
     <div class="input-container">
-      <el-input placeholder="请输入需要扫盘的目录路径,如C:\\" v-model="path">
+      <el-input placeholder="请输入需要扫盘的根目录,如C:\\" v-model="path">
         <el-button slot="append" icon="el-icon-search" class="search-btn" @click="_click"></el-button>
       </el-input>
     </div>

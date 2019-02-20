@@ -1,5 +1,5 @@
 <template>
-  <div class="folder">
+  <div class="folder" @click="_intoFolder">
     <div class="iconfont icon-wenjianjia icon"></div>
     <el-tooltip class="name" effect="dark" :content="directory.name" placement="bottom-end">
       <span>{{ directory.name }}</span>
@@ -7,6 +7,7 @@
   </div>
 </template>
 <script>
+import http from '@/http'
 export default {
   props: {
     directory: {
@@ -16,6 +17,16 @@ export default {
           name: ''
         }
       }
+    }
+  },
+  methods: {
+    async _intoFolder () {
+      const result = await http.getDirChildren(this.directory.allPath)
+      this.$emit('inFolder', {
+        folder: this.directory,
+        children: result.data
+      })
+      console.log(this.directory.allPath + '目录下：', result)
     }
   }
 }

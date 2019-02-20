@@ -21,6 +21,7 @@ import htmlImg from './images/html.png'
 import exeImg from './images/exe.png'
 import zipImg from './images/zip.png'
 import picImg from './images/pic.png'
+import jsImg from './images/js.png'
 import unknownImg from './images/unknown.png'
 export default {
   props: {
@@ -43,21 +44,23 @@ export default {
         case 0:
           return musicImg
         case 1:
-          if (this.file.name.endsWith('txt')) {
+          if (this.file.name.endsWith('.txt')) {
             return txtImg
-          } else if (this.file.name.endsWith('doc') || this.file.name.endsWith('docx')) {
+          } else if (this.file.name.endsWith('.doc') || this.file.name.endsWith('.docx')) {
             return wordImg
-          } else if (this.file.name.endsWith('pdf')) {
+          } else if (this.file.name.endsWith('.pdf')) {
             return pdfImg
-          } else if (this.file.name.endsWith('xls') || this.file.name.endsWith('xlsx')) {
+          } else if (this.file.name.endsWith('.xls') || this.file.name.endsWith('.xlsx')) {
             return excelImg
-          } else if (this.file.name.endsWith('ppt') || this.file.name.endsWith('pptx')) {
+          } else if (this.file.name.endsWith('.ppt') || this.file.name.endsWith('.pptx')) {
             return pptImg
-          } else if (this.file.name.endsWith('html')) {
+          } else if (this.file.name.endsWith('.html')) {
             return htmlImg
-          } else if (this.file.name.endsWith('exe')) {
+          } else if (this.file.name.endsWith('.js')) {
+            return jsImg
+          } else if (this.file.name.endsWith('.exe')) {
             return exeImg
-          } else if (this.file.name.endsWith('zip') || this.file.name.endsWith('rar')) {
+          } else if (this.file.name.endsWith('.zip') || this.file.name.endsWith('.rar')) {
             return zipImg
           }
           return unknownImg
