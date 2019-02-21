@@ -1,5 +1,5 @@
 <template>
-  <div class="folder" @click="_intoFolder">
+  <div class="folder noselect" @click="_intoFolder">
     <div class="iconfont icon-wenjianjia icon"></div>
     <el-tooltip class="name" effect="dark" :content="directory.name" placement="bottom-end">
       <span>{{ directory.name }}</span>

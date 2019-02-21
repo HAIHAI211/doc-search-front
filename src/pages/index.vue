@@ -1,8 +1,8 @@
 <template>
   <el-container id="index-page">
     <el-header id="header">
-      <i class="iconfont icon-tree"></i>
-      <span>B+Tree</span>
+      <i class="iconfont icon-tree" @click="_toLogin"></i>
+      <span class="header-txt" @click="_toLogin">B+Tree</span>
     </el-header>
     <el-container>
       <el-aside id="aside" width="195px">
@@ -41,8 +41,9 @@
           <el-input
             size="medium"
             placeholder="搜索您的文件"
-            suffix-icon="el-icon-search"
-            v-model="search"/>
+            v-model="search">
+            <i slot="suffix" class="el-input__icon el-icon-search" @click="_search"></i>
+          </el-input>
           <el-dropdown class="sort">
             <span class="el-dropdown-link">
               排序<i class="el-icon-arrow-down el-icon--right"></i>
@@ -85,6 +86,7 @@ export default {
       search: '',
       rootPath: '',
       nowPath: '',
+      needUpdateBfsByNowPathChange: true,
       initBfs: [],
       bfs: []
     }
@@ -92,27 +94,44 @@ export default {
   watch: {
     async nowPath (newV, oldV) {
       console.log('nowPath被改变了', 'newV' + newV, 'oldV:' + oldV)
-      const result = await http.getDirChildren(newV)
-      this.bfs = result.data
+      console.log('this.needUpdateBfsByNowPathChange', this.needUpdateBfsByNowPathChange)
+      if (this.needUpdateBfsByNowPathChange) {
+        const result = await http.getDirChildren(newV)
+        this.bfs = result.data
+      }
+      this.needUpdateBfsByNowPathChange = true
     }
   },
   methods: {
+    _toLogin () {
+      this.$router.push({ name: 'Login' })
+    },
     _inFolder (folder) {
       console.log('folder', folder)
       this.nowPath = folder.allPath
     },
     async _getByType (type) {
       const result = await http.getByType(type)
+      this.nowPath = this.rootPath
+      this.needUpdateBfsByNowPathChange = false
       this.bfs = result.data
       console.log('result', result)
     },
     _getAll () {
-      this.bfs = this.initBfs
+      console.log('getAll', this.nowPath, this.rootPath)
+      this.nowPath = this.rootPath
+    },
+    async _search () {
+      const result = await http.getByName(this.search)
+      this.bfs = result.data
+      this.nowPath = this.rootPath
+      this.needUpdateBfsByNowPathChange = false
     }
   },
   async mounted () {
     this.rootPath = this.$route.params.rootPath
     this.nowPath = this.rootPath
+    this.needUpdateBfsByNowPathChange = false
     this.bfs = this.$route.params.bfs
     if (!this.bfs) {
       this.$router.push({name: 'Login'})
@@ -135,10 +154,14 @@ export default {
       letter-spacing: .5px;
       color: #000;
       .icon-tree{
+        cursor: pointer;
         font-size: 30px;
         font-weight: 300;
         color: #366DB6;
         margin-right: 5px;
+      }
+      .header-txt{
+        cursor: pointer;
       }
     }
     #aside{
@@ -187,6 +210,12 @@ export default {
             &:focus {
               /*outline: none;*/
               border-color: #c0c4cc;
+            }
+          }
+          .el-icon-search{
+            cursor: pointer;
+            &:hover{
+              color: $active-font-color;
             }
           }
         }

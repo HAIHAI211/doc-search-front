@@ -12,5 +12,9 @@ export default {
   // 根据类型获取文件
   getByType (type) {
     return get('btree/getByType', {type})
+  },
+  // 根据名称获取文件
+  getByName (name) {
+    return get('btree/getByName', {name})
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="path-container">
+  <div class="path-container noselect">
     <span class="previous" @click="_previous" v-if="this.rootPath !== this.nowPath">返回上一级</span>
     <span class="line" v-if="this.rootPath !== this.nowPath">|</span>
     <template v-for="(path,index) in pathArr">
