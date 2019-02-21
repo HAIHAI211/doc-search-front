@@ -37,6 +37,7 @@
       </el-aside>
       <el-main id="main">
         <div class="search-container">
+          <h-path class="path" :rootPath="rootPath" :nowPath.sync="nowPath"/>
           <el-input
             size="medium"
             placeholder="搜索您的文件"
@@ -70,25 +71,35 @@
 import Folder from '@/components/folder'
 import File from '@/components/file'
 import Empty from '@/components/empty'
+import HPath from '@/components/path'
 import http from '@/http'
 export default {
   components: {
     Folder,
     File,
-    Empty
+    Empty,
+    HPath
   },
   data () {
     return {
       search: '',
+      rootPath: '',
+      nowPath: '',
       initBfs: [],
       bfs: []
     }
   },
+  watch: {
+    async nowPath (newV, oldV) {
+      console.log('nowPath被改变了', 'newV' + newV, 'oldV:' + oldV)
+      const result = await http.getDirChildren(newV)
+      this.bfs = result.data
+    }
+  },
   methods: {
-    _inFolder ({folder, children}) {
-      this.bfs = children
+    _inFolder (folder) {
       console.log('folder', folder)
-      console.log('children', children)
+      this.nowPath = folder.allPath
     },
     async _getByType (type) {
       const result = await http.getByType(type)
@@ -100,7 +111,8 @@ export default {
     }
   },
   async mounted () {
-    // const result = await api.test()
+    this.rootPath = this.$route.params.rootPath
+    this.nowPath = this.rootPath
     this.bfs = this.$route.params.bfs
     if (!this.bfs) {
       this.$router.push({name: 'Login'})
@@ -182,6 +194,10 @@ export default {
           position: absolute;
           right: 20px;
           cursor: pointer;
+        }
+        .path{
+          position: absolute;
+          left: 20px;
         }
       }
       .folder-container{

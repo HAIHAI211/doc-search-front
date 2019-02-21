@@ -26,7 +26,7 @@ export default {
       const result = await http.init(this.path)
       console.log('result', result)
       loading.close()
-      this.$router.push({name: 'Index', params: {bfs: result.data}})
+      this.$router.push({name: 'Index', params: {bfs: result.data, rootPath: this.path}})
     }
   }
 }

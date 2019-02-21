@@ -7,7 +7,6 @@
   </div>
 </template>
 <script>
-import http from '@/http'
 export default {
   props: {
     directory: {
@@ -21,12 +20,7 @@ export default {
   },
   methods: {
     async _intoFolder () {
-      const result = await http.getDirChildren(this.directory.allPath)
-      this.$emit('inFolder', {
-        folder: this.directory,
-        children: result.data
-      })
-      console.log(this.directory.allPath + '目录下：', result)
+      this.$emit('inFolder', this.directory)
     }
   }
 }
