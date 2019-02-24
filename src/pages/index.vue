@@ -85,6 +85,7 @@ export default {
     return {
       search: '',
       rootPath: '',
+      initRootPath: '',
       nowPath: '',
       needUpdateBfsByNowPathChange: true,
       initBfs: [],
@@ -112,12 +113,27 @@ export default {
     },
     async _getByType (type) {
       const result = await http.getByType(type)
+      switch (type) {
+        case 0:
+          this.rootPath = '全部音乐'
+          break
+        case 1:
+          this.rootPath = '全部文档'
+          break
+        case 2:
+          this.rootPath = '全部视频'
+          break
+        case 3:
+          this.rootPath = '全部图片'
+          break
+      }
       this.nowPath = this.rootPath
       this.needUpdateBfsByNowPathChange = false
       this.bfs = result.data
       console.log('result', result)
     },
     _getAll () {
+      this.rootPath = this.initRootPath
       console.log('getAll', this.nowPath, this.rootPath)
       this.nowPath = this.rootPath
     },
@@ -131,6 +147,7 @@ export default {
   async mounted () {
     this.rootPath = this.$route.params.rootPath
     this.nowPath = this.rootPath
+    this.initRootPath = this.rootPath // 备份
     this.needUpdateBfsByNowPathChange = false
     this.bfs = this.$route.params.bfs
     if (!this.bfs) {
