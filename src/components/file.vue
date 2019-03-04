@@ -5,7 +5,7 @@
       <img :src="imgSrc" class="img">
     </div>
     <el-tooltip class="name" effect="dark" placement="bottom-end">
-      <div slot="content">{{file.name}}<br/>{{lastModified}}</div>
+      <div slot="content">{{file.name}}<br/>{{space}}<br/>{{lastModified}}</div>
       <span>{{ file.name }}</span>
     </el-tooltip>
   </div>
@@ -51,6 +51,9 @@ export default {
 
       let result = `${year}-${this._addZero(month)}-${this._addZero(date)} ${this._addZero(hour)}:${this._addZero(minute)}:${this._addZero(second)}`
       return result
+    },
+    space () {
+      return `${Math.round(this.file.space / (1024 * 1024))}M`
     },
     imgSrc () {
       switch (this.file.type) {

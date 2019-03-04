@@ -110,7 +110,7 @@ export default {
       this.bfs = this.bfs.sort((a, b) => {
         switch (e) {
           case 'name':
-            return a.name - b.name
+            return a.name > b.name
           case 'time':
             return a.lastModified - b.lastModified
           case 'size':
