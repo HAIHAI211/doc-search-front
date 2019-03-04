@@ -9,7 +9,7 @@
         <el-menu
           default-active="1"
           class="el-menu-vertical-demo">
-          <el-menu-item index="0">
+          <el-menu-item index="0" @click="_getRecent()">
             <i class="el-icon-time"></i>
             <span slot="title">最近使用</span>
           </el-menu-item>
@@ -145,6 +145,10 @@ export default {
       this.bfs = result.data
       this.nowPath = this.rootPath
       this.needUpdateBfsByNowPathChange = false
+    },
+    async _getRecent () {
+      const result = await http.getRecent()
+      console.log(result)
     }
   },
   async mounted () {
