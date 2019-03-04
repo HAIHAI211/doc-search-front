@@ -16,5 +16,9 @@ export default {
   // 根据名称获取文件
   getByName (name) {
     return get('btree/getByName', {name})
+  },
+  // 获取最近使用的文件
+  getRecent () {
+    return get('btree/getRecent')
   }
 }
