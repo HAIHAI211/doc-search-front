@@ -44,14 +44,14 @@
             v-model="search">
             <i slot="suffix" class="el-input__icon el-icon-search" @click="_search"></i>
           </el-input>
-          <el-dropdown class="sort">
+          <el-dropdown class="sort" @command="_onDropDownClick">
             <span class="el-dropdown-link">
               排序<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>文件名</el-dropdown-item>
-              <el-dropdown-item>大小</el-dropdown-item>
-              <el-dropdown-item>修改时间</el-dropdown-item>
+              <el-dropdown-item command="name">文件名</el-dropdown-item>
+              <el-dropdown-item command="size">大小</el-dropdown-item>
+              <el-dropdown-item command="time">修改时间</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -104,6 +104,9 @@ export default {
     }
   },
   methods: {
+    _onDropDownClick (e) {
+      console.log(e)
+    },
     _toLogin () {
       this.$router.push({ name: 'Login' })
     },
