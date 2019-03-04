@@ -4,7 +4,8 @@
     <div class="img-wrap">
       <img :src="imgSrc" class="img">
     </div>
-    <el-tooltip class="name" effect="dark" :content="file.name" placement="bottom-end">
+    <el-tooltip class="name" effect="dark" placement="bottom-end">
+      <div slot="content">{{file.name}}<br/>{{lastModified}}</div>
       <span>{{ file.name }}</span>
     </el-tooltip>
   </div>
@@ -39,6 +40,18 @@ export default {
     }
   },
   computed: {
+    lastModified () {
+      let d = new Date(this.file.lastModified)
+      let year = d.getFullYear()
+      let month = d.getMonth() + 1
+      let date = d.getDate()
+      let hour = d.getHours()
+      let minute = d.getMinutes()
+      let second = d.getSeconds()
+
+      let result = `${year}-${this._addZero(month)}-${this._addZero(date)} ${this._addZero(hour)}:${this._addZero(minute)}:${this._addZero(second)}`
+      return result
+    },
     imgSrc () {
       switch (this.file.type) {
         case 0:
@@ -71,6 +84,11 @@ export default {
         default:
           return unknownImg
       }
+    }
+  },
+  methods: {
+    _addZero (v) {
+      return v < 10 ? '0' + v : v
     }
   }
 }

@@ -106,6 +106,17 @@ export default {
   methods: {
     _onDropDownClick (e) {
       console.log(e)
+      console.log(this.bfs)
+      this.bfs = this.bfs.sort((a, b) => {
+        switch (e) {
+          case 'name':
+            return a.name - b.name
+          case 'time':
+            return a.lastModified - b.lastModified
+          case 'size':
+            return a.space - b.space
+        }
+      })
     },
     _toLogin () {
       this.$router.push({ name: 'Login' })
